@@ -5,6 +5,13 @@ const StyledButton = styled.button`
     padding: 5px 15px;
     border-radius: 5px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+
+    svg{
+      height: 16px;
+      margin-right: 5px;
+    }
 
     ${props => props.white && !props.outline && css`
       background-color: #fff;
@@ -26,6 +33,10 @@ const StyledButton = styled.button`
     ${props => props.size === "l" && css`
         font-size: 1.2rem;
         padding: 10px 20px;
+
+        svg{
+          height: 20px;
+        }
     `}
 `;
 
