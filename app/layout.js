@@ -1,8 +1,8 @@
 "use client"
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import { createGlobalStyle } from 'styled-components'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Roboto({ subsets: ['latin'], weight:"400" })
 
 export const metadata = {
   title: 'Create Next App',
@@ -10,11 +10,9 @@ export const metadata = {
 }
 
 const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
   body{
       padding: 0;
       margin: 0;
-      font-family: 'Roboto', sans-serif;
     }
 `;
 
