@@ -21,7 +21,7 @@ export default function Home() {
     <div>
       <Header />
       <Featured product={product} />
-      <NewProducts />
+      <NewProducts products={newProducts} />
     </div>
   )
 }
