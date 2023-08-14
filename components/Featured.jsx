@@ -68,7 +68,7 @@ const Featured = ({product}) => {
                             </Desc>
 
                             <ButtonWrapper>
-                                <ButtonLink $white $outline href={"/products/"+ product._id}>
+                                <ButtonLink $white $outline href={"/product/"+ product._id}>
 
                                     Read more
                                 </ButtonLink>
