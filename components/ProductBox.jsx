@@ -1,6 +1,7 @@
 import { styled } from "styled-components"
 import Image from "next/image";
 import Button from "./Button";
+import CartIcon from "./CartIcon";
 
 
 const ProductWrapper = styled.div`
@@ -29,6 +30,22 @@ const Title = styled.h2`
     margin: 0;
 `;
 
+const ProductInfoBox = styled.div`
+    margin-top: 5px;
+`;
+
+const PriceRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2px;
+`;
+
+const Price = styled.span`
+    font-size: 1.2rem;
+    font-weight: bold;
+`
+
 const ProductBox = ({ _id, title, description, price, images }) => {
     return (
         <ProductWrapper>
@@ -38,8 +55,19 @@ const ProductBox = ({ _id, title, description, price, images }) => {
                 </ImgDiv>
             </WhiteBox>
 
-            <Title>{title}</Title>
-            <Button $primary> Add to cart</Button>
+            <ProductInfoBox>
+                <Title>{title}</Title>
+
+                <PriceRow>
+                    <Price>
+                        ${price}
+                    </Price>
+                    <Button $primary $outline>
+                        
+                        Add to cart
+                    </Button>
+                </PriceRow>
+            </ProductInfoBox>
         </ProductWrapper>
     )
 }

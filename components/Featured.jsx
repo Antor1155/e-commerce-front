@@ -73,7 +73,7 @@ const Featured = ({product}) => {
                                     Read more
                                 </ButtonLink>
 
-                                <Button $primary>
+                                <Button $white>
                                     <CartIcon />
                                     Add to Cart
                                 </Button>
