@@ -3,6 +3,7 @@ import { styled } from 'styled-components'
 import Center from './Center';
 import Image from 'next/image';
 import Button from './Button';
+import ButtonLink from './ButtonLink';
 
 const Bg = styled.div`
     background-color: #222;
@@ -23,7 +24,7 @@ const Desc = styled.p`
 
 const ColumnsWrapper = styled.div`
     display: grid;
-    grid-template-columns: .9fr 1.1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
 
     img{
@@ -49,22 +50,23 @@ const ImgDiv = styled.div`
     width: 100%;
 `;
 
-const Featured = () => {
+const Featured = ({product}) => {
     return (
         <Bg>
             <Center>
                 <ColumnsWrapper>
                     <Column>
                         <div>
-                            <Title> Pro anywhere </Title>
-                            <Desc>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo rem placeat cupiditate nobis eligendi harum
+                            <Title> {product.title} </Title>
+                            <Desc>
+                                {product.description}
                             </Desc>
 
                             <ButtonWrapper>
-                                <Button $white $outline>
+                                <ButtonLink $white $outline href={"/products/"+ product._id}>
 
                                     Read more
-                                </Button>
+                                </ButtonLink>
 
                                 <Button $primary>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
