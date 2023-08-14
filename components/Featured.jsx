@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Button from './Button';
 import ButtonLink from './ButtonLink';
 import CartIcon from './CartIcon';
+import { useContext } from 'react';
+import { CartContext } from './CartContext';
 
 const Bg = styled.div`
     background-color: #222;
@@ -55,7 +57,12 @@ const ImgDiv = styled.div`
     }
 `;
 
-const Featured = ({product}) => {
+
+
+const Featured = ({ product }) => {
+
+    const {cartProducts, setCartProducts, addProductToCart}  = useContext(CartContext)
+
     return (
         <Bg>
             <Center>
@@ -68,12 +75,12 @@ const Featured = ({product}) => {
                             </Desc>
 
                             <ButtonWrapper>
-                                <ButtonLink $white $outline href={"/product/"+ product._id}>
+                                <ButtonLink $white $outline href={"/product/" + product._id}>
 
                                     Read more
                                 </ButtonLink>
 
-                                <Button $white>
+                                <Button $white onClick={()=> addProductToCart(product?._id)}>
                                     <CartIcon />
                                     Add to Cart
                                 </Button>

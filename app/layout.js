@@ -1,8 +1,9 @@
 "use client"
+import CartContextProvider from '@/components/CartContext'
 import { Roboto } from 'next/font/google'
 import { createGlobalStyle } from 'styled-components'
 
-const inter = Roboto({ subsets: ['latin'], weight:"400" })
+const inter = Roboto({ subsets: ['latin'], weight: "400" })
 
 export const metadata = {
   title: 'Create Next App',
@@ -22,7 +23,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <GlobalStyles />
 
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <CartContextProvider>
+          {children}
+        </CartContextProvider>
+      </body>
     </html>
   )
 }
