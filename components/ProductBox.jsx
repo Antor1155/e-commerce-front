@@ -3,8 +3,8 @@ import Image from "next/image";
 import Button from "./Button";
 import CartIcon from "./CartIcon";
 import Link from "next/link";
-// import { useContext } from "react";
-// import { CartContext } from "./CartContext";
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 
 const ProductWrapper = styled.div`
@@ -55,7 +55,7 @@ const Price = styled.span`
 const ProductBox = ({ _id, title, description, price, images }) => {
     const url = "/product/" + _id;
 
-    // const {cartProducts, setCartProducts, addProductToCart}  = useContext(CartContext)
+    const {addProductToCart}  = useContext(CartContext)
 
     return (
         <ProductWrapper>
@@ -72,7 +72,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
                     <Price>
                         ${price}
                     </Price>
-                    <Button $primary $outline >
+                    <Button $primary $outline onClick={()=>addProductToCart(_id)}>
                         
                         Add to cart
                     </Button>
