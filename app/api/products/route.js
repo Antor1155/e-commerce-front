@@ -11,7 +11,7 @@ export const GET = async(req, res) =>{
         if(id){
             products = await Product.findById(id)
         }else{
-            products = await Product.find()
+            products = await Product.find({}, null, {sort: {'_id': -1}, limit:10})
         }
         
         
