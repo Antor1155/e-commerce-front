@@ -54,7 +54,7 @@ const QunatityLable = styled.span`
 `;
 
 const CartPage = () => {
-    const { cartProducts, removeCartProduct, addProductToCart} = useContext(CartContext)
+    const { cartProducts, removeCartProduct, addProductToCart } = useContext(CartContext)
 
     const [products, setProducts] = useState([])
 
@@ -65,12 +65,19 @@ const CartPage = () => {
         }
     }, [cartProducts])
 
-    function moreOfThisProduct(id){
+    function moreOfThisProduct(id) {
         addProductToCart(id)
     }
 
-    function lessOfThisProduct(id){
+    function lessOfThisProduct(id) {
         removeCartProduct(id)
+    }
+
+    let total = 0;
+
+    for (const productId of cartProducts) {
+        const price = products.find(p => p._id === productId)?.price || 0
+        total += price;
     }
 
     return (
@@ -112,7 +119,7 @@ const CartPage = () => {
                                             </ProductInfoCell>
 
                                             <td>
-                                                <Button onClick={()=>
+                                                <Button onClick={() =>
                                                     lessOfThisProduct(product._id)
                                                 }>-</Button>
                                                 <QunatityLable>
@@ -120,9 +127,9 @@ const CartPage = () => {
                                                         cartProducts.filter(id => id === product._id).length
                                                     }
                                                 </QunatityLable>
-                                                <Button 
-                                                    onClick={()=> moreOfThisProduct(product._id)}
-                                                    >+
+                                                <Button
+                                                    onClick={() => moreOfThisProduct(product._id)}
+                                                >+
                                                 </Button>
                                             </td>
 
@@ -132,6 +139,13 @@ const CartPage = () => {
 
                                         </tr>
                                     ))}
+                                    <tr>
+
+                                        <td></td>
+                                        <td></td>
+
+                                        <td>$ {total}</td>
+                                    </tr>
                                 </tbody>
                             </Table>
                         )}
