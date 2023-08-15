@@ -49,8 +49,12 @@ const ImageBox = styled.div`
 
 `;
 
+const QunatityLable = styled.span`
+    padding: 0 3px;
+`;
+
 const CartPage = () => {
-    const { cartProducts } = useContext(CartContext)
+    const { cartProducts, removeCartProduct, addProductToCart} = useContext(CartContext)
 
     const [products, setProducts] = useState([])
 
@@ -59,8 +63,15 @@ const CartPage = () => {
             axios.post("/api/cart", { ids: cartProducts })
                 .then(response => setProducts(response.data))
         }
-
     }, [cartProducts])
+
+    function moreOfThisProduct(id){
+        addProductToCart(id)
+    }
+
+    function lessOfThisProduct(id){
+        removeCartProduct(id)
+    }
 
     return (
         <>
@@ -101,13 +112,22 @@ const CartPage = () => {
                                             </ProductInfoCell>
 
                                             <td>
-                                                {
-                                                    cartProducts.filter(id => id === product._id).length
-                                                }
+                                                <Button onClick={()=>
+                                                    lessOfThisProduct(product._id)
+                                                }>-</Button>
+                                                <QunatityLable>
+                                                    {
+                                                        cartProducts.filter(id => id === product._id).length
+                                                    }
+                                                </QunatityLable>
+                                                <Button 
+                                                    onClick={()=> moreOfThisProduct(product._id)}
+                                                    >+
+                                                </Button>
                                             </td>
 
                                             <td>
-                                                $ {product.price}
+                                                $ {cartProducts.filter(id => id === product._id).length * product.price}
                                             </td>
 
                                         </tr>

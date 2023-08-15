@@ -16,6 +16,16 @@ const CartContextProvider = ({children}) => {
         }
     }
 
+    function removeCartProduct(productId){
+        setCartProducts(prev => {
+            const pos = prev.indexOf(productId)
+            if(pos !== -1){
+                return prev.filter((id, index) => index !== pos)
+            }
+            return prev
+        } )
+    }
+
     useEffect(()=>{
         if(cartProducts.length){
             localStorage.setItem("cart", JSON.stringify(cartProducts))
@@ -24,7 +34,7 @@ const CartContextProvider = ({children}) => {
     }, [cartProducts])
     
     return (
-    <CartContext.Provider value={{cartProducts, setCartProducts, addProductToCart}}>
+    <CartContext.Provider value={{cartProducts, setCartProducts, addProductToCart, removeCartProduct}}>
         {children}
     </CartContext.Provider>
   )
