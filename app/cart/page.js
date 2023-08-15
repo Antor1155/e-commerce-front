@@ -23,20 +23,30 @@ const Box = styled.div`
 `;
 
 const ProductInfoCell = styled.td`
+    padding: 10px 0;
+
+`;
+
+const ImgContain = styled.div`
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
     padding: 10px;
+`
 
-    div{
-        width: 140px;
-        height: 140px;
-        position: relative;
-        background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, .1);
-        border-radius: 10px;
+const ImageBox = styled.div`
+    width: 80px;
+    height: 80px;
+    position: relative;
 
-        img{
-            object-fit: contain;
-        }
+    img{
+        object-fit: contain;
     }
+
 `;
 
 const CartPage = () => {
@@ -81,9 +91,12 @@ const CartPage = () => {
                                         <tr key={product._id}>
 
                                             <ProductInfoCell>
-                                                <div>
-                                                    <Image src={product.images[0]} fill={true} alt="product image" />
-                                                </div>
+                                                <ImgContain>
+                                                    <ImageBox>
+                                                        <Image src={product.images[0]} fill={true} alt="product image" />
+                                                    </ImageBox>
+                                                </ImgContain>
+
                                                 {product.title}
                                             </ProductInfoCell>
 
