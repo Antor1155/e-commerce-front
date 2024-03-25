@@ -7,10 +7,10 @@ const stripe = require("stripe")(process.env.STRIPE_SK)
 export const POST = async(req, res) =>{
     try{
 
-        const {name, email, city, postalCode, streetAddress, country, products} = await req.json()
+        const {name, email, city, postalCode, streetAddress, country, cartProducts} = await req.json()
         
         await mongooseConnect()
-        const productIds = products.split(",")
+        const productIds = cartProducts
         const uniqueIds = [...new Set(productIds)]
         
         const productInfos = await Product.find({_id:uniqueIds})

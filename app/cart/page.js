@@ -99,11 +99,14 @@ const CartPage = () => {
         total += price;
     }
 
-    function handleFormSubmit(e){
-        e.preventDefault()
-        axios.post("/api/checkout", {name, email, city, postalCode, streetAddress, country, products: e.target.products.value})
-        .then(response => console.log(response.data))
-
+    async function goToPayment(){
+        const response = await axios.post("/api/checkout", {name, email, city, postalCode, streetAddress, country, 
+            cartProducts
+        })
+        
+        if(response?.data?.url){
+            window.location.href = response.data.url
+        }
     }
 
     return (
@@ -182,7 +185,6 @@ const CartPage = () => {
                         <Box>
                             <h2> Order Information</h2>
 
-                            <form onSubmit={handleFormSubmit}>
                                 <Input type="text"
                                     placeholder='Name'
                                     value={name}
@@ -218,12 +220,8 @@ const CartPage = () => {
                                     name="country"
                                     onChange={e => setCountry(e.target.value)} />
 
-                                <input type="hidden" 
-                                    value={cartProducts.join(",")} 
-                                    name="products"/>
+                                <Button $black $block onClick={goToPayment}>Continue to payment</Button>
 
-                                <Button $black $block type="submit">Continue to payment</Button>
-                            </form>
                         </Box>
                     )}
                 </ColumsWrapper>
