@@ -2,6 +2,8 @@ import { mongooseConnect } from "@/Database/mongoose"
 import { Order } from "@/models/Order"
 import { Product } from "@/models/Product"
 
+const stripe = require("stripe")(process.env.STRIPE_SK)
+
 export const POST = async(req, res) =>{
     try{
 
@@ -26,7 +28,7 @@ export const POST = async(req, res) =>{
                     price_data: {
                         currency: "USD",
                         product_data: {name: productInfo.title},
-                        unit_amount: quantity * productInfo.price,
+                        unit_amount: quantity * productInfo.price * 100,
                     }
                 });
             }
@@ -43,7 +45,22 @@ export const POST = async(req, res) =>{
             paid:false
         })
 
-        return new Response(JSON.stringify(line_items), {status: 200})
+
+        const session = await stripe.checkout.sessions.create({
+            line_items,
+            mode: "payment",
+            customer_email: email,
+            success_url: `${process.env.PUBLIC_URL}/cart?success=1`,
+            cancel_url: `${process.env.PUBLIC_URL}/cart?canceled=1`,
+            metadata:{orderId:orderDoc._id.toString()}
+        })
+
+
+
+        return new Response(JSON.stringify({
+            url: session.url,
+
+        }), {status: 200})
     }catch(error){
         console.log("error ***: ", error)
     }
