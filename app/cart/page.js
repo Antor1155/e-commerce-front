@@ -63,7 +63,7 @@ const CityHolder = styled.div`
 
 
 const CartPage = () => {
-    const { cartProducts, removeCartProduct, addProductToCart } = useContext(CartContext)
+    const { cartProducts, removeCartProduct, addProductToCart, clearCart } = useContext(CartContext)
 
     const [products, setProducts] = useState([])
 
@@ -83,6 +83,13 @@ const CartPage = () => {
             setProducts([])
         }
     }, [cartProducts])
+
+    useEffect(() => {
+        if(window.location.href.includes("success")){
+            localStorage.setItem("cart", JSON.stringify(cartProducts))
+            clearCart()
+        }
+    }, [])
 
     function moreOfThisProduct(id) {
         addProductToCart(id)
@@ -107,6 +114,20 @@ const CartPage = () => {
         if(response?.data?.url){
             window.location.href = response.data.url
         }
+    }
+
+    if(typeof window != "undefined" && window.location.href.includes("success")){
+        return (
+            <>
+                <Header />
+                <Center>
+                    <Box style={{textAlign:"center"}}>
+                        <h1>Thanks for your order !</h1>
+                        <p>We will email your order progress</p>
+                    </Box>
+                </Center>
+            </>
+        )
     }
 
     return (
