@@ -1,4 +1,5 @@
 import { mongooseConnect } from "@/Database/mongoose"
+import { Order } from "@/models/Order"
 import { Product } from "@/models/Product"
 
 export const POST = async(req, res) =>{
@@ -30,6 +31,17 @@ export const POST = async(req, res) =>{
                 });
             }
         }
+
+        const orderDoc = await Order.create({
+            name,
+            email,
+            city,
+            postalCode,
+            streetAddress,
+            country,
+            line_items,
+            paid:false
+        })
 
         return new Response(JSON.stringify(line_items), {status: 200})
     }catch(error){
