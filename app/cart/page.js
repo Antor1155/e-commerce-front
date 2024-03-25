@@ -66,6 +66,7 @@ const CartPage = () => {
     const { cartProducts, removeCartProduct, addProductToCart, clearCart } = useContext(CartContext)
 
     const [products, setProducts] = useState([])
+    const [paymentSuccess, setPaymentSuccess] = useState(false)
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -85,9 +86,10 @@ const CartPage = () => {
     }, [cartProducts])
 
     useEffect(() => {
-        if(window.location.href.includes("success")){
+        if(typeof window != "undefined" && window.location.href.includes("success")){
             localStorage.setItem("cart", JSON.stringify(cartProducts))
             clearCart()
+            setPaymentSuccess(true)
         }
     }, [])
 
@@ -116,7 +118,7 @@ const CartPage = () => {
         }
     }
 
-    if(typeof window != "undefined" && window.location.href.includes("success")){
+    if(paymentSuccess){
         return (
             <>
                 <Header />
