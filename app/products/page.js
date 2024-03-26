@@ -7,9 +7,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Title = styled.h1`
+export const Title = styled.h1`
     font-size: 1.5em;
 `
+
 
 export default function ProductsPage(){
     const [products, setProduct] = useState([])
