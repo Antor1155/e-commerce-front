@@ -6,8 +6,8 @@ const endpointSecret = process.env.STRIPE_ES
 
 export const POST = async (req, res) => {
     try {
-        // await mongooseConnect()
-        const sig = await req.headers.get('stripe-signature');
+        await mongooseConnect()
+        const sig = await req?.headers?.get('stripe-signature');
 
         const body = await req.text()
 
@@ -16,10 +16,17 @@ export const POST = async (req, res) => {
 
         // Handle the event
         switch (event.type) {
-            case 'payment_intent.succeeded':
-                const paymentIntentSucceeded = event.data.object;
-                // Then define and call a function to handle the event payment_intent.succeeded
-                console.log("*** payment event succeeded", paymentIntentSucceeded)
+            case 'checkout.session.completed':
+                const data = event.data.object;
+                
+                const orderId = data?.metadata?.orderId
+                const paid = data?.payment_status === "paid"
+
+                if(orderId && paid){
+                    await Order.findByIdAndUpdate(orderId, {paid: true})
+
+                    return new Response ("Order paid", {status:200})
+                }
 
                 break;
             // ... handle other event types
@@ -28,7 +35,7 @@ export const POST = async (req, res) => {
         }
 
     } catch (err) {
-        console.log("*** weebhook error", err)
+        // console.log("*** weebhook error", err)
         return new Response(`***weebhook error ${err}`, { status: 400 })
     }
 }
