@@ -53,7 +53,7 @@ const Price = styled.span`
 `
 
 const ProductBox = ({ _id, title, description, price, images }) => {
-    const url = "/product/" + _id;
+    const url = "/products/" + _id;
 
     const {addProductToCart}  = useContext(CartContext)
 
