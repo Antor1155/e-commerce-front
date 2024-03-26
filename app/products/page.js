@@ -1,16 +1,24 @@
 "use client"
-import { mongooseConnect } from "@/Database/mongoose";
+
 import Center from "@/components/Center";
 import Header from "@/components/Header";
-import { Product } from "@/models/Product";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Title = styled.h1`
     font-size: 1.5em;
 `
 
-const page = ({products}) => {
-    console.log(products)
+export default function ProductsPage(){
+    const [products, setProduct] = useState([])
+
+    useEffect(()=>{
+        axios.get("/api/products?all=true")
+        .then(response => setProduct(response.data))
+        .catch(error => console.log("error in all products page : ", error))
+    }, [])
+    
     return (
         <>
             <Header />
@@ -23,4 +31,4 @@ const page = ({products}) => {
     );
 };
 
-export default page;
+;
