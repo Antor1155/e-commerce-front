@@ -34,6 +34,12 @@ const Title = styled(Link)`
     margin: 0;
     text-decoration: none;
     color: inherit;
+
+    @media screen and (max-width: 768px){
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
 `;
 
 const ProductInfoBox = styled.div`
@@ -42,12 +48,17 @@ const ProductInfoBox = styled.div`
 
 const PriceRow = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     margin-top: 2px;
+
+    @media screen and (min-width: 768px){
+        flex-direction: row;
+    }
 `;
 
-const Price = styled.span`
+const Price = styled.div`
     font-size: 1.2rem;
     font-weight: 700;
 `
