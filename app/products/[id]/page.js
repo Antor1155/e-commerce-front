@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { usePathname } from 'next/navigation'
 import styled from "styled-components";
-import Image from "next/image";
-import { WhiteBox } from "@/components/ProductBox";
+import ProductImages from "@/components/ProductImages";
 
 const ColWrapper = styled.div`
     display: grid;
@@ -16,6 +15,13 @@ const ColWrapper = styled.div`
     gap: 40px;
     margin-top: 40px;
 `
+
+const PWhiteBox = styled.div`
+    background-color: white;
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+`;
 
 const ImgDiv = styled.div`
     width: 100%;
@@ -39,17 +45,17 @@ const Page = () => {
             .catch(error => console.log("error in all products page : ", error))
     }, [])
 
-    console.log(product)
+    console.log("product in id page : ", product)
     return (
         <>
             <Header />
             <Center>
                 <ColWrapper>
-                    <WhiteBox>
+                    <PWhiteBox>
                         <ImgDiv>
-                            <Image fill src={product?.images?.[0]} alt={product.title} />
+                            <ProductImages images={product?.images || {}} />
                         </ImgDiv>
-                    </WhiteBox>
+                    </PWhiteBox>
                     <div>
                         <Title>{product?.title}</Title>
                         <p>{product?.description}</p>
