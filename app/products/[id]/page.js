@@ -23,15 +23,7 @@ const PWhiteBox = styled.div`
     border-radius: 10px;
 `;
 
-const ImgDiv = styled.div`
-    width: 100%;
-    height: 100%;
-    position:relative;
 
-    img{
-        object-fit: contain;
-    }
-`;
 
 
 const Page = () => {
@@ -44,17 +36,14 @@ const Page = () => {
             .then(response => setProduct(response.data))
             .catch(error => console.log("error in all products page : ", error))
     }, [])
-
-    console.log("product in id page : ", product)
     return (
         <>
             <Header />
             <Center>
                 <ColWrapper>
                     <PWhiteBox>
-                        <ImgDiv>
-                            <ProductImages images={product?.images || {}} />
-                        </ImgDiv>
+
+                        <ProductImages images={product?.images || []} />
                     </PWhiteBox>
                     <div>
                         <Title>{product?.title}</Title>
