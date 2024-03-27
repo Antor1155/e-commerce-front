@@ -11,7 +11,7 @@ const ProductWrapper = styled.div`
 
 `;
 
-const WhiteBox = styled(Link)`
+export const WhiteBox = styled(Link)`
     background-color: white;
     display: block;
     padding: 20px;
