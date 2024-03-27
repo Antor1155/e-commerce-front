@@ -53,9 +53,7 @@ const NavLink = styled(Link)`
     text-decoration: none;
 
     @media screen and (max-width: 768px){
-        padding: 10px 0;
-
-        
+        padding: 10px 0; 
     }
 
 `;
