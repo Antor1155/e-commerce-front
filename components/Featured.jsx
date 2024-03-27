@@ -55,6 +55,10 @@ const ButtonWrapper = styled.div`
     display: flex;
     gap: 10px;
     margin-top: 25px;
+
+    @media screen and (max-width: 768px){
+        justify-content: space-between;
+    }
 `;
 
 const Column = styled.div`
