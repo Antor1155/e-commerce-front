@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ImgDiv = styled.div`
@@ -17,6 +17,7 @@ const ThumbsDiv = styled.div`
     display: flex;
     gap: 5px;
     margin-top: 25px;
+    justify-content: space-between;
 
     img{
         border: 1px solid rgba(0,0,0,0.2);
@@ -32,7 +33,12 @@ const ThumbsDiv = styled.div`
 `
 
 const ProductImages = ({ images }) => {
-    const [mainImage, setMainImage] = useState(images[0]);  
+    const [mainImage, setMainImage] = useState(images?.[0]); 
+    
+    useEffect(()=>{
+        setMainImage(images[0]);
+    }, [images])
+
     return (
         <>
             <ImgDiv>
@@ -41,7 +47,7 @@ const ProductImages = ({ images }) => {
 
             <ThumbsDiv >
                 {images.map((image, ind) => (
-                    <Image key={ind} src={image} alt="proudct image" width={80} height={80} style={{ objectFit: 'contain' }} 
+                    <Image key={ind} src={image} alt="proudct image" width={50} height={50} style={{ objectFit: 'contain' }} 
                     onClick={() => setMainImage(image)}
                     />
                 ))}
