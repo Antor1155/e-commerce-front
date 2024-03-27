@@ -15,6 +15,10 @@ const ColumsWrapper = styled.div`
     grid-template-columns: 1.3fr .7fr;
     gap: 40px;
     margin-top: 40px;
+
+    @media screen and (max-width: 768px){
+        grid-template-columns: 1fr;
+    }
 `;
 
 export const Box = styled.div`
@@ -26,7 +30,6 @@ export const Box = styled.div`
 
 const ProductInfoCell = styled.td`
     padding: 10px 0;
-
 `;
 
 const ImgContain = styled.div`
@@ -38,6 +41,10 @@ const ImgContain = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 10px;
+
+    @media screen and (max-width: 768px){
+        padding: 2px;
+    }
 `
 
 const ImageBox = styled.div`
@@ -52,7 +59,11 @@ const ImageBox = styled.div`
 `;
 
 const QunatityLable = styled.span`
-    padding: 0 3px;
+    padding: 0 15px;
+
+    @media screen and (max-width: 768px){
+        display: block;
+    }
 `;
 
 
