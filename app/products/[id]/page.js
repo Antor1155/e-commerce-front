@@ -39,6 +39,10 @@ const PriceRow = styled.div`
     gap: 20px;
     align-items:center;
 
+    @media screen and (max-width: 768px){
+        justify-content: space-between;
+    }
+
 `
 const Price = styled.span`
     font-size: 1.4rem;
