@@ -17,6 +17,14 @@ const ColWrapper = styled.div`
     grid-template-columns: .8fr 1.2fr;
     gap: 40px;
     margin-top: 40px;
+    align-items: center;
+
+    margin-bottom: 50px;
+
+    @media screen and (max-width: 768px){
+        grid-template-columns: 1fr;
+        gap: 70px;
+    }
 `
 
 const PWhiteBox = styled.div`
