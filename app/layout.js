@@ -1,7 +1,9 @@
 "use client"
 import CartContextProvider from '@/components/CartContext'
 import { Roboto } from 'next/font/google'
+import { ToastContainer } from 'react-toastify'
 import { createGlobalStyle } from 'styled-components'
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Roboto({ subsets: ['latin'], weight: "400" })
 
@@ -27,6 +29,19 @@ export default function RootLayout({ children }) {
         <CartContextProvider>
           {children}
         </CartContextProvider>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </body>
     </html>
   )

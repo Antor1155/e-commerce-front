@@ -8,6 +8,7 @@ import Table from '@/components/table';
 import axios from 'axios';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 import { styled } from 'styled-components';
 
 const ColumsWrapper = styled.div`
@@ -86,6 +87,8 @@ const CartPage = () => {
     const [streetAddress, setStreetAddress] = useState("")
     const [country, setCountry] = useState("")
 
+    const nofity = () => toast("Please fulfill your name, address and other form field")
+
 
     useEffect(() => {
         if (cartProducts.length) {
@@ -97,7 +100,7 @@ const CartPage = () => {
     }, [cartProducts])
 
     useEffect(() => {
-        if(typeof window != "undefined" && window.location.href.includes("success")){
+        if (typeof window != "undefined" && window.location.href.includes("success")) {
             localStorage.setItem("cart", JSON.stringify(cartProducts))
             clearCart()
             setPaymentSuccess(true)
@@ -119,22 +122,28 @@ const CartPage = () => {
         total += price;
     }
 
-    async function goToPayment(){
-        const response = await axios.post("/api/checkout", {name, email, city, postalCode, streetAddress, country, 
-            cartProducts
-        })
-        
-        if(response?.data?.url){
-            window.location.href = response.data.url
+    async function goToPayment() {
+        if (name && email && country && city && postalCode) {
+
+            const response = await axios.post("/api/checkout", {
+                name, email, city, postalCode, streetAddress, country,
+                cartProducts
+            })
+
+            if (response?.data?.url) {
+                window.location.href = response.data.url
+            }
+        } else {
+            nofity()
         }
     }
 
-    if(paymentSuccess){
+    if (paymentSuccess) {
         return (
             <>
                 <Header />
                 <Center>
-                    <Box style={{textAlign:"center"}}>
+                    <Box style={{ textAlign: "center" }}>
                         <h1>Thanks for your order !</h1>
                         <p>We will email your order progress</p>
                     </Box>
@@ -219,42 +228,42 @@ const CartPage = () => {
                         <Box>
                             <h2> Order Information</h2>
 
-                                <Input type="text"
-                                    placeholder='Name'
-                                    value={name}
-                                    name="name"
-                                    onChange={e => setName(e.target.value)}/>
-                                <Input type="email"
-                                    placeholder='Email'
-                                    value={email}
-                                    name="email"
-                                    onChange={e => setEmail(e.target.value)} />
+                            <Input type="text"
+                                placeholder='Name'
+                                value={name}
+                                name="name"
+                                onChange={e => setName(e.target.value)} />
+                            <Input type="email"
+                                placeholder='Email'
+                                value={email}
+                                name="email"
+                                onChange={e => setEmail(e.target.value)} />
 
-                                <CityHolder>
-                                    <Input type="text"
-                                        placeholder='City'
-                                        value={city}
-                                        name="city"
-                                        onChange={e => setCity(e.target.value)} />
-                                    <Input type="text"
-                                        placeholder='Postal Code'
-                                        value={postalCode}
-                                        name="postalCode"
-                                        onChange={e => setPostalCode(e.target.value)} />
-                                </CityHolder>
-
+                            <CityHolder>
                                 <Input type="text"
-                                    placeholder='Street Address' 
-                                    value={streetAddress}
-                                    name="streetAddress"
-                                    onChange={e => setStreetAddress(e.target.value)} />
+                                    placeholder='City'
+                                    value={city}
+                                    name="city"
+                                    onChange={e => setCity(e.target.value)} />
                                 <Input type="text"
-                                    placeholder='Country'
-                                    value={country}
-                                    name="country"
-                                    onChange={e => setCountry(e.target.value)} />
+                                    placeholder='Postal Code'
+                                    value={postalCode}
+                                    name="postalCode"
+                                    onChange={e => setPostalCode(e.target.value)} />
+                            </CityHolder>
 
-                                <Button $black $block onClick={goToPayment}>Continue to payment</Button>
+                            <Input type="text"
+                                placeholder='Street Address'
+                                value={streetAddress}
+                                name="streetAddress"
+                                onChange={e => setStreetAddress(e.target.value)} />
+                            <Input type="text"
+                                placeholder='Country'
+                                value={country}
+                                name="country"
+                                onChange={e => setCountry(e.target.value)} />
+
+                            <Button $black $block onClick={goToPayment}>Continue to payment</Button>
 
                         </Box>
                     )}
