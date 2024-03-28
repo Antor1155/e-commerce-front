@@ -1,5 +1,6 @@
 "use client"
 import { createContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export const CartContext = createContext({})
 
@@ -10,9 +11,12 @@ const CartContextProvider = ({ children }) => {
         setCartProducts(JSON.parse(localStorage.getItem("cart")) || [])
     }, [])
 
+    const notify = () => toast("Product added to cart")
+
     function addProductToCart(productId) {
         if (productId) {
             setCartProducts(prev => [...prev, productId])
+            notify()
         }
     }
 
